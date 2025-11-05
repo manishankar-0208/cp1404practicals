@@ -18,6 +18,11 @@ def main():
     print("\nGuitars sorted by year:")
     display_guitars(guitars)
 
+    guitars += get_new_guitars()
+
+    save_guitars("guitars.csv", guitars)
+    print("\nAll guitars have been saved to guitars.csv.")
+
 
 def load_guitars(filename):
     """Load guitars from a CSV file and return a list of Guitar objects."""
@@ -36,6 +41,29 @@ def display_guitars(guitars):
     """Display all guitars in a formatted list."""
     for i, guitar in enumerate(guitars, 1):
         print(f"Guitar {i}: {guitar}")
+
+
+def get_new_guitars():
+    """Ask user for new guitars and return them as a list of Guitar objects."""
+    new_guitars = []
+    print("\nEnter new guitars:")
+    name = input("Name: ")
+    while name != "":
+        year = int(input("Year: "))
+        cost = float(input("Cost: $"))
+        guitar = Guitar(name, year, cost)
+        new_guitars.append(guitar)
+        print(f"{guitar} added.\n")
+        name = input("Name: ")
+    return new_guitars
+
+
+def save_guitars(filename, guitars):
+    """Save all guitars to the CSV file."""
+    with open(filename, "w", encoding="utf-8") as out_file:
+        for guitar in guitars:
+            print(f"{guitar.name},{guitar.year},{guitar.cost}", file=out_file)
+
 
 if __name__ == "__main__":
     main()
