@@ -1,7 +1,7 @@
 """
 CP1404/CP5632 Practical - Project Management Program client code
-Estimate: 30 minutes
-Actual:   35 minutes
+Estimate: 45 minutes
+Actual:   45 minutes
 """
 
 from datetime import datetime
@@ -102,6 +102,56 @@ def filter_by_date(projects):
     Project.__lt__ = original_lt  # restore priority sorting
     for project in filtered_projects:
         print(project)
+
+def add_new_project(projects):
+    """Ask user for input and add a new project."""
+    print("Let's add a new project")
+    name = get_valid_input("Name: ", str)
+    start_date = get_valid_input("Start date (dd/mm/yyyy): ", date_format="%d/%m/%Y")
+    priority = get_valid_input("Priority: ", int, min_value=1)
+    cost = get_valid_input("Cost estimate: $", float, min_value=0)
+    percent = get_valid_input("Percent complete: ", int, min_value=0, max_value=100)
+    project = Project(name, start_date, priority, cost, percent)
+    projects.append(project)
+    print(f"{project.name} added successfully!\n")
+
+def get_valid_input(prompt, input_type=str, min_value=None, max_value=None, date_format=None):
+    """Function to get valid input from user."""
+    is_valid_input = False
+    while not is_valid_input:
+        user_input = input(prompt).strip()
+        try:
+            if date_format:
+                value = datetime.strptime(user_input, date_format).strftime(date_format)
+                is_valid_input = True
+                return value
+            value = input_type(user_input)
+            if min_value is not None and value < min_value:
+                print(f"Value must be >= {min_value}")
+            elif max_value is not None and value > max_value:
+                print(f"Value must be <= {max_value}")
+            else:
+                is_valid_input = True
+                return value
+        except ValueError:
+            type_name = "date" if date_format else input_type.__name__
+            print(f"Invalid {type_name}, please try again.")
+
+def update_project(projects):
+    """Update completion percentage and/or priority for an existing project."""
+    for i, project in enumerate(projects):
+        print(i, project)
+
+    choice = get_valid_input("Project choice: ", int, min_value=0, max_value=len(projects) - 1)
+    project = projects[choice]
+    print(project)
+
+    new_percentage = get_valid_input("New percentage: ", int, min_value=0, max_value=100)
+    project.completion_percentage = new_percentage
+
+    new_priority = input("New Priority: ")
+    if new_priority:
+        project.priority = int(new_priority)
 
 if __name__ == "__main__":
     main()
