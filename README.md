@@ -19,5 +19,5 @@ During my professional journey, I realized the importance of strengthening my **
 
 ## Useful Links
 1. [Programming Patterns Page](https://github.com/CP1404/Starter/wiki/Programming-Patterns)
-2. [Style Guide for naming and commenting)](https://github.com/CP1404/Starter/wiki/Style-Guide)
+2. [Style Guide for naming and commenting](https://github.com/CP1404/Starter/wiki/Style-Guide)
 
