@@ -1,7 +1,7 @@
 """
 CP1404/CP5632 Practical - Project Management Program client code
-Estimate: 20 minutes
-Actual: 25 minutes
+Estimate: 30 minutes
+Actual:   35 minutes
 """
 
 from datetime import datetime
@@ -35,11 +35,11 @@ def main():
         elif choice == "D":
             display_projects(projects)
         elif choice == "F":
-            pass
+            filter_by_date(projects)
         elif choice == "A":
-            pass
+            add_new_project(projects)
         elif choice == "U":
-            pass
+            update_project(projects)
         else:
             print("Invalid choice")
         choice = input(f"{MENU}\n>>> ").strip().upper()
@@ -89,6 +89,19 @@ def display_projects(projects):
     print("Completed projects:")
     for project in completed_projects:
         print(f"  {project}")
+
+def filter_by_date(projects):
+    """Ask the user for a date and display projects starting on or after that date."""
+    date_string = input("Show projects that start after date (dd/mm/yyyy): ")
+    filter_date = datetime.strptime(date_string, "%d/%m/%Y").date()
+    filtered_projects = [project for project in projects if datetime.strptime(project.start_date, "%d/%m/%Y").date() >= filter_date]
+    # Temporarily override __lt__ to sort by start_date
+    original_lt = Project.__lt__
+    Project.__lt__ = Project.compare_by_start_date
+    filtered_projects.sort()
+    Project.__lt__ = original_lt  # restore priority sorting
+    for project in filtered_projects:
+        print(project)
 
 if __name__ == "__main__":
     main()

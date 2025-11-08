@@ -1,7 +1,7 @@
 """
 CP1404/CP5632 Practical - Project class.
-Estimate: 10 minutes
-Actual: 10 minutes
+Estimate: 25 minutes
+Actual:   30 minutes
 """
 from datetime import datetime
 class Project:
@@ -17,6 +17,10 @@ class Project:
     def __lt__(self, other):
         """Allow sorting by priority."""
         return self.priority < other.priority
+
+    def compare_by_start_date(self, other):
+        """Compare two Project instances by start date."""
+        return datetime.strptime(self.start_date, "%d/%m/%Y").date() < datetime.strptime(other.start_date,"%d/%m/%Y").date()
 
     def is_complete(self):
         """Return True if project is 100% complete."""
