@@ -10,7 +10,7 @@ from kivy.lang import Builder
 from kivy.core.window import Window
 from kivy.properties import StringProperty
 
-FACTOR_MILES_TO_KM = 1.60934
+MILES_TO_KM = 1.60934
 
 class MilesToKmConverterApp(App):
     """Miles to Kilometres Converter"""
@@ -27,7 +27,7 @@ class MilesToKmConverterApp(App):
             miles = float(text)
         except ValueError:
             miles = 0
-        km = miles * FACTOR_MILES_TO_KM
+        km = miles * MILES_TO_KM
         self.output_km = f"{km:.2f}"
 
     def handle_increment(self, change):
