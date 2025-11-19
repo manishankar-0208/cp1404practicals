@@ -11,10 +11,10 @@ def main():
     taxi = SilverServiceTaxi("Hummer", 200, 4)
     taxi.drive(0)
     print(taxi)
-    print(taxi.get_fare())
+    print(f"Total Ride Price: $ {taxi.get_fare():.2f}")
     taxi = SilverServiceTaxi("Silver Service Fancy Taxi", 100, 2)
     taxi.drive(18)
     print(taxi)
-    print(taxi.get_fare())
+    print(f"Total Ride Price: $ {taxi.get_fare():.2f}")
 
 main()
