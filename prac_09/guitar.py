@@ -4,7 +4,8 @@ Guitar class
 """
 # Note: It would be better to get the current year from the system clock
 # and you might like to do that: lookup the "datetime" module
-CURRENT_YEAR = 2022
+from datetime import datetime
+CURRENT_YEAR = datetime.now().year
 VINTAGE_AGE = 50
 
 
