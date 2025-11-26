@@ -8,11 +8,17 @@ import wikipedia
 def main():
     title = input("Enter page title: ").strip()
     while title != "":
-        page = wikipedia.page(title, auto_suggest=False)
-        print(f"\n{title.capitalize()} Wikipedia Page Details")
-        print(f"Title: {page.title}")
-        print(f"URL: {page.url}")
-        print(f"Summary:\n{page.summary}")
-        print()
+        try:
+            page = wikipedia.page(title, auto_suggest=False)
+            print(f"Title: {page.title}")
+            print(f"URL: {page.url}")
+            print(f"Summary:\n{page.summary}")
+            print()
+        except wikipedia.PageError:
+            print(f'Page id "{title}" does not match any pages. Try another id!')
+        except wikipedia.DisambiguationError as sub:
+            print("We need a more specific title. Try one of the following, or a new search:")
+            print(sub.options)
         title = input("Enter page title: ").strip()
+    print("Thank you")
 main()
